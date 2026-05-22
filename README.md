@@ -1,36 +1,44 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# 25 Club
 
-## Getting Started
+A small web app for the 25 Club investment group:
 
-First, run the development server:
+- **Portfolio** — live view of current positions with real-time prices, gain/loss, and historical performance vs the major indices.
+- **Analyze a Stock** — type a ticker; Claude evaluates it in the context of the club&apos;s existing portfolio, surfaces bull/bear cases, and suggests conversation hooks tied to specific members for the next meeting.
+
+Built collaboratively with Claude as a working example of AI-assisted development for the club&apos;s AI-themed discussion.
+
+## Stack
+
+- [Next.js 15](https://nextjs.org) (App Router) + TypeScript + Tailwind
+- [yahoo-finance2](https://github.com/gadicc/node-yahoo-finance2) for live quotes
+- [Anthropic Claude](https://docs.anthropic.com/) for AI analysis
+- Deploys to [Vercel](https://vercel.com) in one click
+
+## Local development
 
 ```bash
+# 1. Install deps
+npm install
+
+# 2. Add your Anthropic API key
+cp .env.example .env.local
+# then paste your key into .env.local
+
+# 3. Run
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Open <http://localhost:3000>.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## Updating the portfolio
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+Positions and members live in `src/lib/holdings.ts` and `src/lib/members.ts`. Edit and redeploy.
+Filling in `members[].background` will dramatically improve the per-member discussion-hook
+suggestions on the Analyze page.
 
-## Learn More
+## Deploying to Vercel
 
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+1. Push this repo to GitHub.
+2. Import it at <https://vercel.com/new>.
+3. Add `ANTHROPIC_API_KEY` as a project environment variable.
+4. Deploy. Every future `git push` to `main` auto-deploys.
