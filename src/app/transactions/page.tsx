@@ -2,7 +2,7 @@ import { deriveTransactions, rateTransactions, uniqueTickers } from "@/lib/trans
 import { fetchQuotes } from "@/lib/prices";
 import { TransactionsTable } from "./TransactionsTable";
 
-export const dynamic = "force-dynamic";
+export const revalidate = 60;
 
 export default async function TransactionsPage() {
   const txns = deriveTransactions();

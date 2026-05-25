@@ -7,7 +7,7 @@ import {
 } from "@/lib/holdings";
 import { HoldingsTable } from "./HoldingsTable";
 
-export const dynamic = "force-dynamic";
+export const revalidate = 60;
 
 function fmtCurrency(n: number | null, opts: Intl.NumberFormatOptions = {}) {
   if (n === null || Number.isNaN(n)) return "—";

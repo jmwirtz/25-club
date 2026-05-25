@@ -3,7 +3,7 @@ import { getEnrichedPortfolio } from "@/lib/portfolio";
 import { computeMemberStats } from "@/lib/leaderboard";
 import { CASH_BALANCE, HISTORICAL_RETURNS, MMKT_BALANCE, PORTFOLIO_AS_OF } from "@/lib/holdings";
 
-export const dynamic = "force-dynamic";
+export const revalidate = 60;
 
 export default async function Home() {
   const { holdings, totals } = await getEnrichedPortfolio();
