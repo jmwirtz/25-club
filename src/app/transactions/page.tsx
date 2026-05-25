@@ -49,7 +49,7 @@ export default async function TransactionsPage() {
           purchase price (from the cost-basis change in the monthly reports) against
           today&apos;s live price. For sells, the rating flips — a stock that fell after
           you sold is &quot;smart,&quot; a stock that rallied is &quot;oof.&quot; Thresholds:
-          ≥+30% favorable = 🎯 Smart, ≥+10% = 👌 Solid, ±10% = 🤔 Meh, –30% to –10% = 😬 Oof, ≤–30% = 🤦 Yikes.
+          ≥+30% favorable = 🎯 Smart, ≥+8% = 👌 Solid, ±8% = 🤔 Meh, –30% to –8% = 😬 Oof, ≤–30% = 🤦 Yikes.
         </p>
         <p>
           Prices update live on each page load. Transactions are derived from snapshot

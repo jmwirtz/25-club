@@ -47,7 +47,7 @@ export default async function MembersPage() {
         <div className="px-4 py-3 border-b border-slate-200">
           <h2 className="font-medium">Leaderboard</h2>
           <p className="text-xs text-slate-500 mt-1">
-            Click any column to sort. Rank is by total $ gain.
+            Toggle ranking between total $ gain and annualized return. Click any column to sort.
           </p>
         </div>
         <MembersTable stats={stats} />

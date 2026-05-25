@@ -28,4 +28,5 @@ export type EnrichedHolding = Holding & {
   marketValue: number | null;
   gainLoss: number | null;
   gainLossPct: number | null;
+  annualizedReturnPct: number | null;
 };

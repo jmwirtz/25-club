@@ -24,6 +24,14 @@ export async function getEnrichedPortfolio(): Promise<{
       marketValue !== null && h.purchaseCost > 0
         ? ((marketValue - h.purchaseCost) / h.purchaseCost) * 100
         : null;
+    const holdYears = Math.max(
+      1 / 12,
+      (Date.now() - new Date(h.originalDOP).getTime()) / (365.25 * 24 * 3600 * 1000),
+    );
+    const annualizedReturnPct =
+      gainLossPct !== null
+        ? (Math.pow(1 + gainLossPct / 100, 1 / holdYears) - 1) * 100
+        : null;
     return {
       ...h,
       avgCost: h.quantity > 0 ? h.purchaseCost / h.quantity : 0,
@@ -31,6 +39,7 @@ export async function getEnrichedPortfolio(): Promise<{
       marketValue,
       gainLoss,
       gainLossPct,
+      annualizedReturnPct,
     };
   });
 

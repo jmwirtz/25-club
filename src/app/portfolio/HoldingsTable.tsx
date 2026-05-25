@@ -13,6 +13,7 @@ type SortKey =
   | "marketValue"
   | "gainLoss"
   | "gainLossPct"
+  | "annualizedReturnPct"
   | "member"
   | "originalDOP";
 
@@ -113,14 +114,15 @@ export function HoldingsTable({ holdings }: { holdings: EnrichedHolding[] }) {
               <Th sortKey="currentPrice" current={sortKey} dir={sortDir} onClick={setSort} right>Price</Th>
               <Th sortKey="marketValue" current={sortKey} dir={sortDir} onClick={setSort} right>Market Value</Th>
               <Th sortKey="gainLoss" current={sortKey} dir={sortDir} onClick={setSort} right>Gain/Loss</Th>
-              <Th sortKey="gainLossPct" current={sortKey} dir={sortDir} onClick={setSort} right>%</Th>
+              <Th sortKey="gainLossPct" current={sortKey} dir={sortDir} onClick={setSort} right>Total %</Th>
+              <Th sortKey="annualizedReturnPct" current={sortKey} dir={sortDir} onClick={setSort} right>Ann. %</Th>
               <Th sortKey="member" current={sortKey} dir={sortDir} onClick={setSort}>Point</Th>
             </tr>
           </thead>
           <tbody>
             {visible.length === 0 && (
               <tr>
-                <td colSpan={11} className="px-4 py-8 text-center text-slate-500">
+                <td colSpan={12} className="px-4 py-8 text-center text-slate-500">
                   No holdings match your filters.
                 </td>
               </tr>
@@ -140,6 +142,9 @@ export function HoldingsTable({ holdings }: { holdings: EnrichedHolding[] }) {
                 </Td>
                 <Td className={`text-right ${h.gainLossPct === null ? "" : h.gainLossPct >= 0 ? "text-emerald-700" : "text-rose-700"}`}>
                   {h.gainLossPct !== null ? `${h.gainLossPct >= 0 ? "+" : ""}${h.gainLossPct.toFixed(1)}%` : "—"}
+                </Td>
+                <Td className={`text-right ${h.annualizedReturnPct === null ? "" : h.annualizedReturnPct >= 0 ? "text-emerald-700" : "text-rose-700"}`}>
+                  {h.annualizedReturnPct !== null ? `${h.annualizedReturnPct >= 0 ? "+" : ""}${h.annualizedReturnPct.toFixed(1)}%` : "—"}
                 </Td>
                 <Td className="text-slate-600">{h.member ?? "—"}</Td>
               </tr>

@@ -199,11 +199,11 @@ export function rateTransactions(
         rating = "smart";
         label = "Smart Move";
         emoji = "🎯";
-      } else if (favorable >= 10) {
+      } else if (favorable >= 8) {
         rating = "solid";
         label = "Solid";
         emoji = "👌";
-      } else if (favorable >= -10) {
+      } else if (favorable >= -8) {
         rating = "meh";
         label = "Meh";
         emoji = "🤔";

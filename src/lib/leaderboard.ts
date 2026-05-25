@@ -7,6 +7,7 @@ export type MemberStats = {
   totalMarketValue: number;
   totalGain: number;
   totalGainPct: number;
+  weightedAvgAnnualizedReturnPct: number;
   bestPick: { ticker: string; gainPct: number; gain: number } | null;
   worstPick: { ticker: string; gainPct: number; gain: number } | null;
   largestPosition: { ticker: string; marketValue: number } | null;
@@ -68,6 +69,17 @@ export function computeMemberStats(holdings: EnrichedHolding[]): {
       return s + Math.max(0, years);
     }, 0);
 
+    // Cost-basis-weighted average of each position's annualized return
+    let annualizedNumer = 0;
+    let annualizedDenom = 0;
+    for (const h of hs) {
+      if (h.annualizedReturnPct !== null) {
+        annualizedNumer += h.annualizedReturnPct * h.purchaseCost;
+        annualizedDenom += h.purchaseCost;
+      }
+    }
+    const weightedAvgAnnualizedReturnPct = annualizedDenom > 0 ? annualizedNumer / annualizedDenom : 0;
+
     return {
       member,
       positionCount: hs.length,
@@ -75,6 +87,7 @@ export function computeMemberStats(holdings: EnrichedHolding[]): {
       totalMarketValue,
       totalGain,
       totalGainPct,
+      weightedAvgAnnualizedReturnPct,
       bestPick: best ? { ticker: best.ticker, gainPct: best.gainLossPct ?? 0, gain: best.gainLoss ?? 0 } : null,
       worstPick: worst ? { ticker: worst.ticker, gainPct: worst.gainLossPct ?? 0, gain: worst.gainLoss ?? 0 } : null,
       largestPosition: largest ? { ticker: largest.ticker, marketValue: largest.marketValue ?? 0 } : null,
@@ -107,6 +120,19 @@ export function computeMemberStats(holdings: EnrichedHolding[]): {
       title: "Best % Return",
       member: topByPct.member,
       detail: `+${topByPct.totalGainPct.toFixed(0)}% across portfolio`,
+    });
+  }
+
+  const topByAnnualized = [...stats]
+    .filter((s) => s.positionCount > 0)
+    .sort((a, b) => b.weightedAvgAnnualizedReturnPct - a.weightedAvgAnnualizedReturnPct)[0];
+  if (topByAnnualized) {
+    awards.push({
+      id: "top-annualized",
+      emoji: "⚡",
+      title: "Best Annualized",
+      member: topByAnnualized.member,
+      detail: `${topByAnnualized.weightedAvgAnnualizedReturnPct >= 0 ? "+" : ""}${topByAnnualized.weightedAvgAnnualizedReturnPct.toFixed(0)}% ann. avg return`,
     });
   }
 
