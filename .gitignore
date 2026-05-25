@@ -40,3 +40,6 @@ yarn-error.log*
 *.tsbuildinfo
 next-env.d.ts
 .claude/
+
+# Private source PDFs — parsed data is committed in src/lib/snapshots.generated.ts
+25_Club_Reports/

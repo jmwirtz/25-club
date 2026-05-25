@@ -2,7 +2,7 @@ import { getEnrichedPortfolio } from "@/lib/portfolio";
 import { computeMemberStats } from "@/lib/leaderboard";
 import { MembersTable } from "./MembersTable";
 
-export const revalidate = 300;
+export const dynamic = "force-dynamic";
 
 export default async function MembersPage() {
   const { holdings } = await getEnrichedPortfolio();

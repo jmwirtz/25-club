@@ -3,7 +3,7 @@ import { getEnrichedPortfolio } from "@/lib/portfolio";
 import { computeMemberStats } from "@/lib/leaderboard";
 import { CASH_BALANCE, HISTORICAL_RETURNS, MMKT_BALANCE, PORTFOLIO_AS_OF } from "@/lib/holdings";
 
-export const revalidate = 300;
+export const dynamic = "force-dynamic";
 
 export default async function Home() {
   const { holdings, totals } = await getEnrichedPortfolio();
@@ -53,7 +53,7 @@ export default async function Home() {
         />
       </section>
 
-      <section className="grid md:grid-cols-3 gap-4">
+      <section className="grid md:grid-cols-2 gap-4">
         <NavCard
           href="/portfolio"
           title="Portfolio"
@@ -68,6 +68,11 @@ export default async function Home() {
           href="/members"
           title="Member Standings"
           description="Leaderboard of who picked what, and how their picks have performed. Awards for biggest gainers, longest holds, and more."
+        />
+        <NavCard
+          href="/transactions"
+          title="Transaction History"
+          description="Every buy, add, trim, and exit over the past two years — each rated on whether it was a smart move given where the stock is now."
         />
       </section>
 
